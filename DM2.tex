@@ -40,7 +40,7 @@
 \begin{document}
 \maketitle
 
-\section{Exercice 5.5}
+\section{Exercice 5.5 - Dual of a general LP}
 
 Considérons le problème suivant:
 
@@ -69,13 +69,165 @@ g(\lambda, \nu) = \begin{cases}
 		  - \infty & \mbox{sinon} 
 		  \end{cases}
 \end{equation*}
-\section{Exercice 5.7}
+
+\section{Exercice 5.7 - Piecewise linear minimization}
+
+Considérons le problème suivant:
+
+\begin{equation}
+\label{pbm_57}
+\min_x \max_{i = 1 \dots m} (a_i^Tx + b_i)
+\end{equation}
+
+avec $x \in \mathbb{R}^n$
+
+\subsection{Question 1}
+
+Ce problème est équivalent à
+
+\begin{equation*}
+\min_{a_i^Tx + b_i = y_i
+} \max_{i = 1 \dots m} y_i\end{equation*}
+
+On obtient le problème dual:
+
+\begin{equation*}
+\max b^T \nu
+\end{equation*}
+ avec les contraintes $\mathbf{1}^T \nu = 1$ et $a^T \nu = 0$ pour $i =
+ 1, \dots m$.
+
+\subsection{Question 2}
+
+Faisons l'hypothèse que les $a_i$ sont triés par ordre croissant, et donc:
+$a_1 \leq a_2 \leq \dots \leq a_m$.
+
+Le graphe de $f$ est linéaire par morceau, avec les points d'arrêt $\frac{b_i - b_{i
++ 1}}{a_{i + 1} - a_i}$
+
+
+On a donc le dual:
+
+$f^*(y) = - b_i - (b_{i + 1} - b_i) \frac{y - a_i}{a_{i + 1} - a_i}$
+
+\subsection{Question 3}
+
+
+Considérons maintenant le problème suivant:
+
+\begin{equation}
+\label{sub_pbm_57}
+f_0(x) = \log \( \sum_{i = 1}^m \exp(a_i^T x + b_i\)
+\end{equation}
+
+Notons $p^*_{gp}$ la valeur optimale du problème (\ref{sub_pbm_57}) et
+$p^*_{pwl}$ celle du problème (\ref{pbm_57}).
+
+Le problème dual associé à (\ref{sub_pbm_57}) est:
+
+\begin{equation*}
+\max \{ b^T \nu - \sum_{i = 1}^m \nu_i \log \nu_i \}
+\end{equation*}
+
+avec les contraintes: $\mathbf{1}^T \nu = 1$ et $a^T \nu = 0$ et $\nu \succeq 0$
+
+\begin{align*}
+\max \{ b^T \nu - \sum_{i = 1}^m \nu_i \log \nu_i \} - \max b^T \nu & \leq & \max b^T \nu - \min \{ \sum_{i = 1}^m \nu_i \log \nu_i \} - \max b^T \nu \\
+& \leq & - \min \{ \sum_{i = 1}^m \nu_i \log \nu_i \}
+\end{align*}
+
+Grâce aux contraintes
+
 
 \section{Exercice 5.9}
 
 \section{Exercice 5.11}
 
-\section{Exercice 5.17}
+Considérons le problème suivant:
 
+\begin{equation}
+\label{pbm_511}
+\min \sum_{i = 1}^N \| A_i x + b_i \|_2 + \frac{1}{2} \| x - x_0 \|_2^2
+\end{equation}
 
+Introduisons les variables suivantes:
+
+\begin{align*}
+y_i & = & A_i x + b_i & i = 1, \dots, N \\
+y_0 & = & x - x_0 & \\
+\end{align*}
+
+Le problème (\ref{pbm_511}) est composé de somme positive. On a donc:
+
+\begin{align*}
+(1) & = & \min \sum_{i = 1}^N \| A_i x + b_i \|_2 + \frac{1}{2} \| x - x_0
+\|_2^2\\
+    & = & \sum_{i = 1}^ N \min \| A_i x + b_i \|_2 + \min \frac {1}{2} \| x -
+    x_0  \|_2^2
+\end{align*}
+
+On peut donc écrire le problème dual équivalent:
+
+\begin{equation*}
+\max \sum_{i = 1}^N b_i^T \nu_i - x_0 \nu_0 - \frac{1}{2} \| \nu_0\|_*^2
+\end{equation*}
+
+avec:
+
+\begin{align*}
+A_i^T \nu_i & = & 0 & i=1, \dots, m \\
+\| nu_i \|_* & < & 1 & \\
+\mathbf{1}^T \nu_0 & = & 0 &
+\end{align*}
+
+\section{Exercice 5.17 - Robust linear programming with polyhedral uncertainty}
+
+Considerons le problème:
+
+\begin{equation}
+\label{pbm_517}
+\min c^Tx
+\end{equation}
+
+avec $x$ tel que:
+
+\begin{equation*}
+\sup_{a \in \mathcal{P}_i} a^Tx \leq b_i, i = 1, \dots m
+\end{equation*}
+
+et $\mathcal{P}_i =  \{a | C_ia \preceq  d_i \}$
+
+Étudions le problème annexe $\max_{a_i \in \mathcal{P}_i} a_i^T x$ avec la
+contrainte $C_i x \preceq d_i$.
+Il est équivalent à résoudre $\min_{a_i \in \mathcal{P}_i} - x^T a_i$, avec la
+même contrainte.
+
+\begin{align*}
+\mathcal{L}(a_i, \lambda, \nu) & = & -x^T a_i + \lambda^T(C_i a_i - d_i)
+\end{align*}
+
+On a donc:
+
+\begin{equation*}
+g(\lambda, \nu) = \begin{cases}
+		    - \lambda^T d & \mbox{si} \lambda^T C - a^T \\
+		    - \infty & \mbox{sinon}
+		  \end{cases}
+\end{equation*}
+
+En posant alors $z_i = - \lambda$, on obtient alors:
+
+\begin{align*}
+d_i^T z_i & \leq b_i \\
+z_i^T C_i & = a_i^T \\
+z_i & \preceq 0
+\end{align*}
+
+Le problème (\ref{pbm_517}) est donc équivalent au problème suivant:
+
+\begin{equation*}
+\min c^T x
+\end{equation*}
+
+avec les contraintes: $d_i^T z_i \leq b_i$, $z_i^T C_i = a_i^T$, $z_i \preceq 0$
 \end{document}
