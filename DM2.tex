@@ -136,7 +136,33 @@ avec les contraintes: $\mathbf{1}^T \nu = 1$ et $a^T \nu = 0$ et $\nu \succeq 0$
 & \leq & - \min \{ \sum_{i = 1}^m \nu_i \log \nu_i \}
 \end{align*}
 
-Grâce aux contraintes
+Or, on a $\forall i, I < \nu_i < 1$. Donc, il existe $i$ tel que $\nu_i \leq
+\frac{1}{m}$.
+
+On a donc $\prod_{i = 1}^m \nu_i \geq \frac{1}{m}$. Et donc $\prod_{i = 1}^m
+\frac{1}{\nu_i} \leq m$. On a donc $\log(\prod_{i = 1}^m \frac{1}{\nu_i}) \leq
+\log \frac{1}{m}$.
+
+Or, par Cauchy-Schwartz, $\sum_{i = 1}^m \nu_i \log(\frac{1}{\nu_i}) \leq \sum \nu_i \sum
+\log(\frac{1}{\nu_i})$.
+
+Donc $\sum_{i = 1}^m \nu_i \log(\frac{1}{\nu_i}) \leq \log(\prod_{i = 1}^m \frac{1}{\nu_i}) \leq
+\log \frac{1}{m}$.
+
+Et donc:
+$- \sum_{i = 1}^m \nu_i \log(\frac{1}{\nu_i}) \geq
+\log m$
+
+De plus, puisque $0 < \nu_i \leq 1$, on a $ 0 \leq - \sum_{i = 1}^m \nu_i \log(\frac{1}{\nu_i})$
+
+On obtient donc:
+
+\begin{equation*}
+0 \leq p^*_{gp} - p^*_{pwl} \leq \log \frac{1}{m}
+\end{equation*}
+
+\subsection{Question 4}
+
 
 
 \section{Exercice 5.9}
