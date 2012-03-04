@@ -3,7 +3,7 @@ import sys
 
 
 # backtracking line search
-def backtracking_line_search(X, delta, G):
+def backtracking_line_search(X, delta, G, verbose=False):
     alpha = 0.3
     beta = 0.5
     t = 1
@@ -13,8 +13,8 @@ def backtracking_line_search(X, delta, G):
     # Check that X is in the domain
     while np.isnan(FY) > 0 or \
           FY > FX + alpha * t * np.dot(G.T, delta):
-
-        print FY.sum(), (FX + alpha * t * np.dot(G.T, delta)).sum()
+        if verbose:
+            print FY.sum(), (FX + alpha * t * np.dot(G.T, delta)).sum()
         Y = X + t * delta
         FY = - np.log((B - (A * Y).sum(axis=1)).sum(axis=0))
         t = beta * t
@@ -77,6 +77,7 @@ def newton_method(A, B, c, T=1, eps=10e-5, max_iter=100, verbose=False):
         # TODO implement the backtracking line search to choose t
         t = backtracking_line_search(X.copy(), delta.copy(), G.copy())
     return X, values, FXs
+
 
 m = 2
 n = 2
