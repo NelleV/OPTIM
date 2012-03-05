@@ -1,5 +1,7 @@
 import numpy as np
 import sys
+import cvxpy
+
 from ex1 import newton_method
 
 m = 2
@@ -15,7 +17,7 @@ verbose = True
 mu = 1.5
 eps = 10e-10
 m = 1
-max_iter = 300
+max_iter = 10
 values = []
 logfile = sys.stdout
 for it in range(max_iter):
@@ -27,3 +29,8 @@ for it in range(max_iter):
         print "break at iteration %s" % it
         break
     t = mu * t
+
+# Let's compare the results with the one obtained with cvxpy
+#x = cvxpy.variable(n,)
+#p = cvxpy.program(cvxpy.minimize(np.dot(c.T, x)),
+#                  [cvxpy.leq(np.dot(A, x).sum(axis=1), B)])
