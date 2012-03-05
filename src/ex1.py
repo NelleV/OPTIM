@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 import sys
 
 
@@ -91,3 +92,11 @@ X, values, FXs = newton_method(A, B, c)
 X_opt = X.repeat(len(values))
 X_opt = X_opt.reshape((n, len(values))).T
 distances = ((values - X_opt) ** 2).sum(axis=1)
+
+fig = plt.figure(1)
+fig.clf()
+plt.plot(distances)
+plt.title("Convergence")
+plt.xlabel('Number of iterations')
+plt.ylabel('distance to optimum')
+plt.show()
